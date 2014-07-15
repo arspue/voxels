@@ -50,4 +50,16 @@ public class Cuboid{
         return new Dimension(b.x - a.x, b.y - a.y, b.z - a.z);
     }
     
+    public long getWidth() {
+        return b.x - a.x;
+    }
+
+    public long getHeight() {
+        return b.y - a.y;
+    }
+
+    public long getDepth() {
+        return b.z - a.z;
+    }
+    
 }

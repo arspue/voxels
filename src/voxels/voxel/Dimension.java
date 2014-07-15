@@ -45,5 +45,28 @@ public class Dimension {
         super.clone();
         return new Dimension(width, height, depth);
     }
-    
+
+    public long getWidth() {
+        return width;
+    }
+
+    public void setWidth(long width) {
+        this.width = width;
+    }
+
+    public long getHeight() {
+        return height;
+    }
+
+    public void setHeight(long height) {
+        this.height = height;
+    }
+
+    public long getDepth() {
+        return depth;
+    }
+
+    public void setDepth(long depth) {
+        this.depth = depth;
+    }
 }

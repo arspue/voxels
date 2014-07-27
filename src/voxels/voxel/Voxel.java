@@ -12,9 +12,9 @@ package voxels.voxel;
  */
 public class Voxel {
 
-    long x = 0L;
-    long y = 0L;
-    long z = 0L;
+    public long x = 0L;
+    public long y = 0L;
+    public long z = 0L;
 
     public Voxel(long x, long y, long z) {
         this.x = x;

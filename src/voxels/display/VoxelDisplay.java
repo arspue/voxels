@@ -15,6 +15,7 @@ import org.lwjgl.input.Mouse;
     import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
+import voxels.voxel.Voxel;
 
 /**
  *
@@ -59,43 +60,43 @@ public class VoxelDisplay {
             Display.destroy();
     }
 
-    private void drawCube() {
+    private void drawCube(Voxel v) {
 
         GL11.glColor3f(0.0f, 1.0f, 0.0f);          // Set The Color To Green
-        GL11.glVertex3f(1.0f, 1.0f, -1.0f);          // Top Right Of The Quad (Top)
-        GL11.glVertex3f(-1.0f, 1.0f, -1.0f);          // Top Left Of The Quad (Top)
-        GL11.glVertex3f(-1.0f, 1.0f, 1.0f);          // Bottom Left Of The Quad (Top)
-        GL11.glVertex3f(1.0f, 1.0f, 1.0f);          // Bottom Right Of The Quad (Top)
+        GL11.glVertex3f(v.x + 1.0f, v.y + 1.0f, v.z);          // Top Right Of The Quad (Top)
+        GL11.glVertex3f(v.x,        v.y + 1.0f, v.z);          // Top Left Of The Quad (Top)
+        GL11.glVertex3f(v.x,        v.y + 1.0f, v.z + 1.0f);          // Bottom Left Of The Quad (Top)
+        GL11.glVertex3f(v.x + 1.0f, v.y + 1.0f, v.z + 1.0f);          // Bottom Right Of The Quad (Top)
 
         GL11.glColor3f(1.0f, 0.5f, 0.0f);          // Set The Color To Orange
-        GL11.glVertex3f(1.0f, -1.0f, 1.0f);          // Top Right Of The Quad (Bottom)
-        GL11.glVertex3f(-1.0f, -1.0f, 1.0f);          // Top Left Of The Quad (Bottom)
-        GL11.glVertex3f(-1.0f, -1.0f, -1.0f);          // Bottom Left Of The Quad (Bottom)
-        GL11.glVertex3f(1.0f, -1.0f, -1.0f);          // Bottom Right Of The Quad (Bottom)
+        GL11.glVertex3f(v.x + 1.0f, v.y, v.z + 1.0f);          // Top Right Of The Quad (Bottom)
+        GL11.glVertex3f(v.x,        v.y, v.z + 1.0f);          // Top Left Of The Quad (Bottom)
+        GL11.glVertex3f(v.x,        v.y, v.z);          // Bottom Left Of The Quad (Bottom)
+        GL11.glVertex3f(v.x + 1.0f, v.y, v.z);          // Bottom Right Of The Quad (Bottom)
 
         GL11.glColor3f(1.0f, 0.0f, 0.0f);          // Set The Color To Red
-        GL11.glVertex3f(1.0f, 1.0f, 1.0f);          // Top Right Of The Quad (Front)
-        GL11.glVertex3f(-1.0f, 1.0f, 1.0f);          // Top Left Of The Quad (Front)
-        GL11.glVertex3f(-1.0f, -1.0f, 1.0f);          // Bottom Left Of The Quad (Front)
-        GL11.glVertex3f(1.0f, -1.0f, 1.0f);          // Bottom Right Of The Quad (Front)
+        GL11.glVertex3f(v.x + 1.0f, v.y + 1.0f, v.z + 1.0f);          // Top Right Of The Quad (Front)
+        GL11.glVertex3f(v.x,        v.y + 1.0f, v.z + 1.0f);          // Top Left Of The Quad (Front)
+        GL11.glVertex3f(v.x,        v.y,        v.z + 1.0f);          // Bottom Left Of The Quad (Front)
+        GL11.glVertex3f(v.x + 1.0f, v.y,        v.z + 1.0f);          // Bottom Right Of The Quad (Front)
 
         GL11.glColor3f(1.0f, 1.0f, 0.0f);          // Set The Color To Yellow
-        GL11.glVertex3f(1.0f, -1.0f, -1.0f);          // Bottom Left Of The Quad (Back)
-        GL11.glVertex3f(-1.0f, -1.0f, -1.0f);          // Bottom Right Of The Quad (Back)
-        GL11.glVertex3f(-1.0f, 1.0f, -1.0f);          // Top Right Of The Quad (Back)
-        GL11.glVertex3f(1.0f, 1.0f, -1.0f);          // Top Left Of The Quad (Back)
+        GL11.glVertex3f(v.x + 1.0f, v.y,        v.z);          // Bottom Left Of The Quad (Back)
+        GL11.glVertex3f(v.x,        v.y,        v.z);          // Bottom Right Of The Quad (Back)
+        GL11.glVertex3f(v.x,        v.y + 1.0f, v.z);          // Top Right Of The Quad (Back)
+        GL11.glVertex3f(v.x + 1.0f, v.y + 1.0f, v.z);          // Top Left Of The Quad (Back)
 
         GL11.glColor3f(0.0f, 0.0f, 1.0f);          // Set The Color To Blue
-        GL11.glVertex3f(-1.0f, 1.0f, 1.0f);          // Top Right Of The Quad (Left)
-        GL11.glVertex3f(-1.0f, 1.0f, -1.0f);          // Top Left Of The Quad (Left)
-        GL11.glVertex3f(-1.0f, -1.0f, -1.0f);          // Bottom Left Of The Quad (Left)
-        GL11.glVertex3f(-1.0f, -1.0f, 1.0f);          // Bottom Right Of The Quad (Left)
-        
-                    GL11.glColor3f(1.0f,0.0f,1.0f);             // Set The Color To Violet
-            GL11.glVertex3f( 1.0f, 1.0f,-1.0f);         // Top Right Of The Quad (Right)
-            GL11.glVertex3f( 1.0f, 1.0f, 1.0f);         // Top Left Of The Quad (Right)
-            GL11.glVertex3f( 1.0f,-1.0f, 1.0f);         // Bottom Left Of The Quad (Right)
-            GL11.glVertex3f( 1.0f,-1.0f,-1.0f);         // Bottom Right Of The Quad (Right)
+        GL11.glVertex3f(v.x, v.y + 1.0f, v.z + 1.0f);          // Top Right Of The Quad (Left)
+        GL11.glVertex3f(v.x, v.y + 1.0f, v.z);          // Top Left Of The Quad (Left)
+        GL11.glVertex3f(v.x, v.y,        v.z);          // Bottom Left Of The Quad (Left)
+        GL11.glVertex3f(v.x, v.y,        v.z + 1.0f);          // Bottom Right Of The Quad (Left)
+
+        GL11.glColor3f(1.0f, 0.0f, 1.0f);             // Set The Color To Violet
+        GL11.glVertex3f(v.x + 1.0f, v.y + 1.0f, v.z);         // Top Right Of The Quad (Right)
+        GL11.glVertex3f(v.x + 1.0f, v.y + 1.0f, v.z + 1.0f);         // Top Left Of The Quad (Right)
+        GL11.glVertex3f(v.x + 1.0f, v.y,        v.z + 1.0f);         // Bottom Left Of The Quad (Right)
+        GL11.glVertex3f(v.x + 1.0f, v.y,        v.z);         // Bottom Right Of The Quad (Right)
     }
     
     private class RotationTimer extends Thread implements Runnable{
@@ -133,12 +134,12 @@ public class VoxelDisplay {
     }
 
     private void renderOpenGl() {
-   Display.sync(120);
+        Display.sync(240);
         //poll for keypresses first, default key is 'forward'
         //if(Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8));
 
 
-        GL11.glScalef(0.5f, 0.5f, 0.5f);
+        GL11.glScalef(0.05f, 0.05f, 0.05f);
 
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT|GL11.GL_COLOR_BUFFER_BIT);
         GL11.glEnable(GL11.GL_CULL_FACE|GL11.GL_DEPTH_TEST);
@@ -146,7 +147,12 @@ public class VoxelDisplay {
         GL11.glRotatef(r, 1, 1, 1);
         GL11.glBegin(GL11.GL_QUADS);
      
-        drawCube();
+        drawCube(new Voxel(1, 2, 0));
+        drawCube(new Voxel(2, 1, 0));
+        drawCube(new Voxel(1, 0, 1));
+        drawCube(new Voxel(1, 1, 1));
+        drawCube(new Voxel(2, 4, 1));
+        drawCube(new Voxel(3, 1, 1));
         
         
         GL11.glEnd();

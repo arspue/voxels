@@ -6,6 +6,7 @@
 
 package voxels.display;
 
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
     import org.lwjgl.LWJGLException;
@@ -138,8 +139,7 @@ public class VoxelDisplay {
         //poll for keypresses first, default key is 'forward'
         //if(Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8));
 
-
-        GL11.glScalef(0.05f, 0.05f, 0.05f);
+        GL11.glScalef(0.02f, 0.02f, 0.02f);
 
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT|GL11.GL_COLOR_BUFFER_BIT);
         GL11.glEnable(GL11.GL_CULL_FACE|GL11.GL_DEPTH_TEST);
@@ -153,6 +153,24 @@ public class VoxelDisplay {
         drawCube(new Voxel(1, 1, 1));
         drawCube(new Voxel(2, 4, 1));
         drawCube(new Voxel(3, 1, 1));
+        drawCube(new Voxel(1, 1, 2));
+        drawCube(new Voxel(2, 4, 3));
+        drawCube(new Voxel(3, 1, 5));
+        
+        LinkedList<Voxel> vl = null;
+//        vl = Graphics.drawLine(new Voxel(5, 0, 0), new Voxel(20, 10, 10));
+        vl = Graphics.drawLine(new Voxel(0, 0, 0), new Voxel(50, 25, 5));
+        
+        for (Voxel voxel : vl) {
+            drawCube(voxel);
+        }
+        
+        vl = Graphics.drawLine(new Voxel(10, 10, 15), new Voxel(50, -10, -15));
+//        vl = Graphics.drawLine(new Voxel(0, 0, 0), new Voxel(5, 5, 5));
+//        
+        for (Voxel voxel : vl) {
+            drawCube(voxel);
+        }
         
         
         GL11.glEnd();

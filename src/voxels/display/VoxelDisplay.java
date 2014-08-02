@@ -147,35 +147,40 @@ public class VoxelDisplay {
         GL11.glRotatef(r, 1, 1, 1);
         GL11.glBegin(GL11.GL_QUADS);
      
-        drawCube(new Voxel(1, 2, 0));
-        drawCube(new Voxel(2, 1, 0));
-        drawCube(new Voxel(1, 0, 1));
-        drawCube(new Voxel(1, 1, 1));
-        drawCube(new Voxel(2, 4, 1));
-        drawCube(new Voxel(3, 1, 1));
-        drawCube(new Voxel(1, 1, 2));
-        drawCube(new Voxel(2, 4, 3));
-        drawCube(new Voxel(3, 1, 5));
+//        drawCube(new Voxel(1, 2, 0));
+//        drawCube(new Voxel(2, 1, 0));
+//        drawCube(new Voxel(1, 0, 1));
+//        drawCube(new Voxel(1, 1, 1));
+//        drawCube(new Voxel(2, 4, 1));
+//        drawCube(new Voxel(3, 1, 1));
+//        drawCube(new Voxel(1, 1, 2));
+//        drawCube(new Voxel(2, 4, 3));
+//        drawCube(new Voxel(3, 1, 5));
         
-        LinkedList<Voxel> vl = null;
-//        vl = Graphics.drawLine(new Voxel(5, 0, 0), new Voxel(20, 10, 10));
-        vl = Graphics.drawLine(new Voxel(0, 0, 0), new Voxel(50, 25, 5));
+//        drawLine(new Voxel(-10, 0, 0), new Voxel(10, 0, 0));
+//        drawLine(new Voxel(0, -10, 0), new Voxel(0, 10, 0));
+//        drawLine(new Voxel(0, 0, -10), new Voxel(0, 0, 10));
         
-        for (Voxel voxel : vl) {
-            drawCube(voxel);
-        }
+        drawLine(new Voxel(10, 0, 0), new Voxel(-10, 0, 0));
+        drawLine(new Voxel(0, 10, 0), new Voxel(0, -10, 0));
+        drawLine(new Voxel(0, 0, 10), new Voxel(0, 0, -10));
         
-        vl = Graphics.drawLine(new Voxel(10, 10, 15), new Voxel(50, -10, -15));
+        
+        drawLine(new Voxel(-5+2, -5+2, -5), new Voxel(5+2, 5+2, 5));
+        drawLine(new Voxel(-5-2, -5-2, -5), new Voxel(5-2, 5-2, 5));
+        
+        GL11.glEnd();
+        GL11.glLoadIdentity();
+
+    }
+    
+    public void drawLine(Voxel a, Voxel b){
+        LinkedList<Voxel> vl = Graphics.drawLine(a, b);
 //        vl = Graphics.drawLine(new Voxel(0, 0, 0), new Voxel(5, 5, 5));
 //        
         for (Voxel voxel : vl) {
             drawCube(voxel);
         }
-        
-        
-        GL11.glEnd();
-        GL11.glLoadIdentity();
-
     }
 
     public void pollInput() {

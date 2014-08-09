@@ -12,6 +12,6 @@ package voxels;
  */
 public class Param{
     
-    public static boolean debug = true;
+    public static boolean debug = false;
     
 }

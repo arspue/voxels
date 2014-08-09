@@ -6,12 +6,15 @@
 
 package voxels.fractal;
 
+import voxels.voxel.Voxel;
+
 /**
  *
  * @author cibin
  */
 public class Fractal {
     
-    
+    Voxel branch = new Voxel(0, 0, 0);
+    Voxel split= new Voxel(0, 0, 10);
     
 }

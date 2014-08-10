@@ -218,7 +218,7 @@ public class VoxelDisplay {
         }   
     }
 
-        private class RotationTimerLR extends Thread implements Runnable{
+    private class RotationTimerLR extends Thread implements Runnable{
 
         @Override
         public void run() {
@@ -253,7 +253,7 @@ public class VoxelDisplay {
     }
 
     private void renderOpenGl() {
-        Display.sync(30);
+        Display.sync(240);
         //poll for keypresses first, default key is 'forward'
         //if(Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8));
 
@@ -262,7 +262,9 @@ public class VoxelDisplay {
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT|GL11.GL_COLOR_BUFFER_BIT);
         GL11.glEnable(GL11.GL_CULL_FACE|GL11.GL_DEPTH_TEST);
 //        GL11.glColor3f(1, 0, 0);
-        GL11.glRotatef(r2, 1, (float)Math.sin(Math.toRadians(r)), 1);
+        
+        GL11.glRotatef(r,  1, 0, 0);
+        GL11.glRotatef(r2, 0, 1, 0);
         GL11.glBegin(GL11.GL_QUADS);
      
 //        drawCube(new Voxel(1, 2, 0));
@@ -284,7 +286,8 @@ public class VoxelDisplay {
             for(int y = -32; y <= 32; y++ ){
                 int z =(int) Math.round(Math.sin(d*0.05+(((double)(x*y))/1024)*Math.PI/2)*8);
 //                System.out.println(Math.sin((((double)(x*y))/256)*Math.PI)*8);
-                drawValueColoredVoxel(new Voxel(x, y, z), -10, 10);
+//                drawValueColoredVoxel(new Voxel(x, y, z), -10, 10);
+                drawRandomColoredVoxel(new Voxel(x, y, z));
             }
         }
         

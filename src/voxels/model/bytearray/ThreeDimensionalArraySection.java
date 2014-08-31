@@ -9,16 +9,16 @@ package voxels.model.bytearray;
 import voxels.voxel.Cuboid;
 
 /**
- *
+ * better for ram operations?
  * @author cibin
  */
-public class Section {
+public class ThreeDimensionalArraySection {
     
     Cuboid cuboid = null;
     
     byte[][][] data = null;
 
-    public Section(Cuboid cuboid, byte[][][] data) {
+    public ThreeDimensionalArraySection(Cuboid cuboid, byte[][][] data) {
         this.cuboid = cuboid;
         this.data = data;
     }

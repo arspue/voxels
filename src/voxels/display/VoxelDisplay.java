@@ -17,7 +17,8 @@ import org.lwjgl.input.Mouse;
     import org.lwjgl.opengl.DisplayMode;
     import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.util.glu.GLU;
+import voxels.MockData;
+import voxels.model.bytearray.ByteVoxel;
 import voxels.voxel.Voxel;
 
 /**
@@ -36,7 +37,7 @@ public class VoxelDisplay {
     boolean rotate2 = true;
     int r2 = 0;
     
-    double d = 0.0;
+    double angle = 0.0;
     
     boolean cmdForward = false;
     boolean cmdBack = false;
@@ -113,13 +114,14 @@ public class VoxelDisplay {
     }
     
     private float getRandom(){
-        return random.nextFloat() - ((random.nextFloat()*8)%1)/8;
+        float value = random.nextFloat();
+        return value - ((value*8)%1)/8;
     }
     
     public void drawValueColoredVoxel(Voxel v, int min, int max){
         GL11.glColor3f(
-                (float)getRedToGreen(-6, 6, v.z).getRed()/256,
-                (float)getRedToGreen(-6, 6, v.z).getGreen()/256,
+                (float)getRedToGreen(min, max, v.z).getRed()/256,
+                (float)getRedToGreen(min, max, v.z).getGreen()/256,
                 0 );
         drawVoxel(v);
         
@@ -185,7 +187,7 @@ public class VoxelDisplay {
     private void startTimers() {
         new RotationTimer().start();
         new RotationTimerLR().start();
-        new DegreeTimer().start();
+        new AngleTimer().start();
     }
     
     private class RotationTimer extends Thread implements Runnable{
@@ -203,12 +205,12 @@ public class VoxelDisplay {
             }
         }   
     }
-    private class DegreeTimer extends Thread implements Runnable{
+    private class AngleTimer extends Thread implements Runnable{
 
         @Override
         public void run() {
             while (true){
-                d++;
+                angle++;
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException ex) {
@@ -281,22 +283,35 @@ public class VoxelDisplay {
 //        drawLine(new Voxel(0, -10, 0), new Voxel(0, 10, 0));
 //        drawLine(new Voxel(0, 0, -10), new Voxel(0, 0, 10));
 
-        
-        for (int x = -32; x <= 32; x++){
-            for(int y = -32; y <= 32; y++ ){
-                int z =(int) Math.round(Math.sin(d*0.05+(((double)(x*y))/1024)*Math.PI/2)*8);
-//                System.out.println(Math.sin((((double)(x*y))/256)*Math.PI)*8);
-//                drawValueColoredVoxel(new Voxel(x, y, z), -10, 10);
-                drawRandomColoredVoxel(new Voxel(x, y, z));
+//        long sinD = (long) Math.round(Math.sin(Math.toRadians(d))*32);
+//        long cosD = (long) Math.round(Math.cos(Math.toRadians(d))*32);
+//        System.out.println(d);
+//        drawColoredLine(new Voxel(0, 0, 0), new Voxel(sinD, cosD, 0), Color.MAGENTA);
+
+        for (ByteVoxel byteVoxel : MockData.getSection()) {
+            if (byteVoxel.getValue() == 1) {
+                drawColoredVoxel(byteVoxel, Color.GRAY);
             }
         }
+        
+        
+//        for (int x = -32; x <= 32; x++){
+//            for(int y = -32; y <= 32; y++ ){
+//                int z =(int) Math.round(Math.sin(angle * 0.05 + (((double)(x*y))/1024)*Math.PI*2)*8);
+////                System.out.println(Math.sin((((double)(x*y))/256)*Math.PI)*8);
+//                drawValueColoredVoxel(new Voxel(x, y, z-1), -10, 10);
+//                drawValueColoredVoxel(new Voxel(x, y, z), -10, 10);
+//                drawValueColoredVoxel(new Voxel(x, y, z+1), -10, 10);
+////                drawRandomColoredVoxel(new Voxel(x, y, z));
+//            }
+//        }
+        
         
 //        drawColoredLine(new Voxel(10, 20, 30), new Voxel(20, 10, 0), Color.MAGENTA);
         
         drawColoredLine(new Voxel(100, 0, 0), new Voxel(-100, 0, 0), Color.RED);
         drawColoredLine(new Voxel(0, 100, 0), new Voxel(0, -100, 0), Color.GREEN);
         drawColoredLine(new Voxel(0, 0, 100), new Voxel(0, 0, -100), Color.BLUE);
-        
         
 //        drawLine(new Voxel(-5+2, -5+2, -5), new Voxel(5+2, 5+2, 5));
 //        drawLine(new Voxel(-5-2, -5-2, -5), new Voxel(5-2, 5-2, 5));

@@ -62,4 +62,28 @@ public class Cuboid{
         return b.z - a.z;
     }
     
+    public long getMinX(){
+        return !(a.x > b.x)? a.x : b.x;
+    }
+    
+    public long getMaxX(){
+        return !(b.x < a.x)? b.x : a.x;
+    }
+    
+    public long getMinY(){
+        return !(a.y > b.y)? a.y : b.y;
+    }
+    
+    public long getMaxY(){
+        return !(b.y < a.y)? b.y : a.y;
+    }
+    
+    public long getMinZ(){
+        return !(a.z > b.z)? a.z : b.z;
+    }
+    
+    public long getMaxZ(){
+        return !(b.z < a.z)? b.z : a.z;
+    }
+    
 }

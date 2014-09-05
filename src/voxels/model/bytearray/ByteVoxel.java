@@ -23,6 +23,11 @@ public class ByteVoxel extends Voxel{
         super(x, y, z);
         this.value = value;
     }
+    
+    public ByteVoxel(Voxel voxel, byte value) {
+        super(voxel.x, voxel.y, voxel.z);
+        this.value = value;
+    }
 
     public byte getValue() {
         return value;

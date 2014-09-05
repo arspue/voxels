@@ -6,7 +6,9 @@
 
 package voxels;
 
+import java.util.ArrayList;
 import java.util.Random;
+import voxels.model.bytearray.ByteVoxel;
 import voxels.model.bytearray.OneDimensionalArraySection;
 import voxels.voxel.Cuboid;
 import voxels.voxel.Voxel;
@@ -17,15 +19,35 @@ import voxels.voxel.Voxel;
  */
 public class MockData {
     
-    static Random random = new Random();
+    public static Random random = new Random();
 
-    static OneDimensionalArraySection section = null;
+    public static OneDimensionalArraySection section = MockData.getSection();
+    
+    public static ArrayList<Voxel> activeVoxels = null;
+
+    public static ArrayList<Voxel> getActiveVoxels() {
+        
+        if (activeVoxels == null) {
+            
+            activeVoxels = new ArrayList<Voxel>();
+            
+            for (ByteVoxel v : section) {
+                if (v.getValue() > 0) {
+                    activeVoxels.add(new Voxel(v.x, v.y, v.z));
+                }
+            }
+        }
+        
+        return activeVoxels;
+    }
+    
+    
     
     public static OneDimensionalArraySection getSection(){
         if (section == null) {
             section = new OneDimensionalArraySection();
         
-            Cuboid c = new Cuboid(new Voxel(-32, -32, -32), new Voxel(32, 32, 32));
+            Cuboid c = new Cuboid(new Voxel(-32, -32, -32), new Voxel(33, 33, 33));
             section.setCuboid(c);
 
             for (int x = -32; x < 32; x++) {

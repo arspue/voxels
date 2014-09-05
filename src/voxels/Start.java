@@ -6,6 +6,7 @@
 
 package voxels;
 
+import voxel.tests.Tests;
 import voxels.display.VoxelDisplay;
 
 /**
@@ -14,6 +15,9 @@ import voxels.display.VoxelDisplay;
  */
 public class Start {
     public static void main(String[] args) {
+        if (!Tests.runTests()){
+            return;
+        }
         //temp entry point?
         VoxelDisplay vd = new VoxelDisplay();
                 vd.start();

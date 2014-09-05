@@ -7,7 +7,9 @@
 package voxels.display;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,8 +19,11 @@ import org.lwjgl.input.Mouse;
     import org.lwjgl.opengl.DisplayMode;
     import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import sun.swing.SwingUtilities2;
 import voxels.MockData;
+import voxels.model.Section;
 import voxels.model.bytearray.ByteVoxel;
+import voxels.model.bytearray.OneDimensionalArraySection;
 import voxels.voxel.Voxel;
 
 /**
@@ -27,6 +32,7 @@ import voxels.voxel.Voxel;
  */
 public class VoxelDisplay {
 
+    
     DisplayMode displayMode;
     
     Random random = new Random();
@@ -189,6 +195,48 @@ public class VoxelDisplay {
         new RotationTimerLR().start();
         new AngleTimer().start();
     }
+
+    private void moveVoxels() {
+        
+        ArrayList<Voxel>  activeVoxels = MockData.getActiveVoxels();
+        
+        for(int i = 0; i < activeVoxels.size(); i++){
+            
+            moveVoxel(i, activeVoxels);
+        }
+    }
+    
+    private void moveRandomVoxel() {
+        ArrayList<Voxel>  activeVoxels = MockData.getActiveVoxels();
+        moveVoxel(random.nextInt(activeVoxels.size()), activeVoxels);
+    }
+            
+            
+    private void moveVoxel(int i, ArrayList<Voxel> activeVoxels){
+            
+        OneDimensionalArraySection section = MockData.getSection();
+        
+        Voxel voxel = activeVoxels.get(i);
+
+        //Move by drawing to data(like 3D canvas): oldVoxel = off, newVoxel = on
+        section.storeVoxelValue(voxel, (byte) 0);
+
+        Voxel newVoxel = new Voxel(
+                voxel.x + random.nextInt(3) - 1, 
+                voxel.y + random.nextInt(3) - 1, 
+                voxel.z + random.nextInt(3) - 1);
+
+        // went far? move to center
+        if(newVoxel.x > 32 || newVoxel.x < -32 ||
+           newVoxel.y > 32 || newVoxel.y < -32 ||     
+           newVoxel.z > 32 || newVoxel.z < -32){
+
+            newVoxel = new Voxel(0, 0, 0); 
+        }
+
+        section.storeVoxelValue(newVoxel, (byte) 1);
+        activeVoxels.set(i, newVoxel);
+    }
     
     private class RotationTimer extends Thread implements Runnable{
 
@@ -259,6 +307,13 @@ public class VoxelDisplay {
         //poll for keypresses first, default key is 'forward'
         //if(Keyboard.isKeyDown(Keyboard.KEY_NUMPAD8));
 
+    
+//            moveVoxels();
+        for(int i=1;i<200;i++){
+            moveRandomVoxel();
+        }
+       
+        
         GL11.glScalef(0.02f, 0.02f, 0.02f);
 
         GL11.glClear(GL11.GL_DEPTH_BUFFER_BIT|GL11.GL_COLOR_BUFFER_BIT);
@@ -288,7 +343,7 @@ public class VoxelDisplay {
 //        System.out.println(d);
 //        drawColoredLine(new Voxel(0, 0, 0), new Voxel(sinD, cosD, 0), Color.MAGENTA);
 
-        for (ByteVoxel byteVoxel : MockData.getSection()) {
+        for (ByteVoxel byteVoxel : MockData.section) {
             if (byteVoxel.getValue() == 1) {
                 drawColoredVoxel(byteVoxel, Color.GRAY);
             }

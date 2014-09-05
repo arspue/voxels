@@ -51,15 +51,18 @@ public class Cuboid{
     }
     
     public long getWidth() {
-        return b.x - a.x;
+//        return b.x - a.x;
+        return getMaxX() - getMinX();
     }
 
     public long getHeight() {
-        return b.y - a.y;
+//        return b.y - a.y;
+        return getMaxY() - getMinY();
     }
 
     public long getDepth() {
-        return b.z - a.z;
+//        return b.z - a.z;
+        return getMaxZ() - getMinZ();
     }
     
     public long getMinX(){
